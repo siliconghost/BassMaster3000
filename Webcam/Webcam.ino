@@ -11,7 +11,6 @@ const int sensor1Pin = A0;  // Analog pin for sensor 1
 const int sensor2Pin = A3;
 const int ledPin= 13;
 const int acPin = 3;  // Digital pin for AC control
-const int remoteACPin = 12; // Digital pin for Remote AC control
 int sensor1Value = 0;
 int sensor2Value = 0;
 int pot1Value = 0;  // variable to store the value coming from the potentiometer
@@ -29,8 +28,7 @@ void setup()
   FileSystem.begin();
   pinMode(ledPin, OUTPUT);
   pinMode(acPin, OUTPUT);
-  pinMode(remoteACPin, OUTPUT);
-  
+    
 }
 
 void loop() 
@@ -50,9 +48,7 @@ void loop()
   {
     digitalWrite(ledPin, HIGH);
     digitalWrite(acPin, HIGH);
-    //pressRemoteControl();
-
-    
+        
     if (picturesEnabled) {
       DebugLog("Taking Picture");
       generateTimestampFilename();
@@ -64,11 +60,7 @@ void loop()
       processShellCommand("cp " + sdPath + filename + " " + picturesPath);
       
       appendToFile(filename, picturesListFile);
-      
-      // Upload to Dropbox
-      //process.runShellCommand("python " + sdPath + "upload_process.py " + sdPath + filename);
-      //while(process.running());
-     
+        
     }
     sensor1Value = 0;
     sensor2Value = 0;
@@ -76,15 +68,7 @@ void loop()
   else 
   digitalWrite(ledPin, LOW);
   digitalWrite(acPin, LOW);
-  //pressRemoteControl();
- 
-}
-
-void pressRemoteControl()
-{
-  digitalWrite(remoteACPin, HIGH);
-  delay(300);
-  digitalWrite(remoteACPin, LOW);
+   
 }
 
 void processShellCommand(String command)
